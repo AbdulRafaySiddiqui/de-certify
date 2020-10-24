@@ -1,10 +1,16 @@
 import React from 'react';
-import './App.css';
 import { Layout } from './ui/layout/layout';
+import AppContextProvider from './context_providers/app_context';
+import AlertsListProvider from './context_providers/alert_context';
 
 function App() {
   return (
-    <Layout />
+    <AppContextProvider>
+      <AlertsListProvider>
+        <Layout />
+      </AlertsListProvider>
+    </AppContextProvider>
+
   );
 }
 

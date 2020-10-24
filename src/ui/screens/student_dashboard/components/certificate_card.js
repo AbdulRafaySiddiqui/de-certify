@@ -1,38 +1,60 @@
 import React from 'react';
 import { Card, Button, Row, Col, NavLink } from 'react-bootstrap';
-import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
+import { FaCheckCircle, FaTimesCircle, FaEyeSlash, FaEye } from "react-icons/fa";
 import { Link, useHistory } from 'react-router-dom';
 
-export const CertificateCard = () => {
+export const CertificateCard = ({ certificate }) => {
     const history = useHistory();
     return (
-        <Card style={{ width: '300px', cursor: "pointer", boxShadow: " 0 10px 10px rgba(0, 0, 0, 0.2)" }} onClick={() => history.push(`/certificate/address`)}>
-            <Card.Img variant="top" src="https://mathias-sager.com/wp-content/uploads/2019/07/80-is-Psychology-Certificate-sample2.png" />
+        <Card style={{ cursor: "pointer", boxShadow: " 0 10px 10px rgba(0, 0, 0, 0.2)" }}
+            onClick={() => history.push(`/certificate_details/${certificate.key}`)}>
+            <Card.Img height='300px' variant="top"
+                src={certificate.imgUrl} />
             <Card.Body>
-                <Card.Title>Character Certificate</Card.Title>
+                <Card.Title>{certificate?.name}</Card.Title>
                 <Card.Text>
-                    Some quick example text to build on the card title and make up the bulk of
-                    the card's content.
+                    <p style={{
+                        color: "#949494",
+                        height: "100px",
+                        overflow: "hidden",
+                        margin: "10px",
+                    }}>
+                        {certificate?.description}
+
+                    </p>
                 </Card.Text>
-                <Link >
+                <a target='_blank' href={`https://ropsten.etherscan.io/tx/${certificate?.transactionHash}`}>
                     <h5 style={{
                         textOverflow: "ellipsis",
                         whiteSpace: "nowrap",
                         overflow: "hidden"
                     }}>
-                        0xnduwqidnjsadnwqudasjdnuqwdjkasddawdsfadfaergfdgsegsdvegfvasdv
+                        {certificate?.transactionHash}
                     </h5>
-                </Link>
-                <Button variant="primary">View</Button>
+                </a>
             </Card.Body>
             <Card.Footer>
                 <Row>
-                    <Col>
-                        <FaCheckCircle style={{ color: 'green' }} /> Verified
-                    </Col>
-                    <Col>
-                        <FaTimesCircle style={{ color: 'blue' }} /> Public
-                    </Col>
+                    {
+                        certificate?.status == 'Verified' ?
+                            <Col>
+                                <FaCheckCircle style={{ color: 'green' }} /> Verified
+                            </Col>
+                            :
+                            <Col>
+                                <FaTimesCircle style={{ color: 'red' }} /> Unverified
+                            </Col>
+                    }
+                    {
+                        certificate?.visibility == 'Public' ?
+                            <Col>
+                                <FaEye style={{ color: 'black' }} /> Public
+                            </Col>
+                            :
+                            <Col>
+                                <FaEyeSlash style={{ color: 'grey' }} /> Private
+                            </Col>
+                    }
                 </Row>
             </Card.Footer>
         </Card >
