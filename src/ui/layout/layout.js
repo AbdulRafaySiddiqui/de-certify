@@ -20,6 +20,7 @@ import { InstituteDashboard } from '../screens/institute_dashboard/view/institut
 import { AlertsList } from '../components/alerts/alert_list';
 import { SignOut } from '../components/sign_out/sign_out';
 import { AllCertificates } from '../screens/all_certificates/view/all_certificates';
+import { SearchCertificate } from '../screens/search_certificate/view/search_certificate';
 
 export const Layout = () => {
 
@@ -76,6 +77,8 @@ export const Layout = () => {
     let routes = (
         <Switch>
             <Route path="/sign_out" exact component={SignOut} />
+            <Route path="/certificate_details/:key" exact component={CertificateDetails} />
+            <Route path="/search_certificate" component={SearchCertificate} />
             <Route path="/" component={UserRegistration} />
         </Switch>
     );
@@ -87,6 +90,7 @@ export const Layout = () => {
                 <Route path="/pending_approvals" exact component={PendingApprovals} />
                 <Route path="/add_certificate" exact component={AddCertificate} />
                 <Route path="/edit_profile" exact component={EditProfile} />
+                <Route path="/search_certificate" component={SearchCertificate} />
                 <Route path="/" component={StudentDashboard} />
             </Switch>
         );
@@ -101,6 +105,7 @@ export const Layout = () => {
                 <Route path="/pending_approvals" exact component={PendingApprovals} />
                 <Route path="/add_certificate" exact component={AddCertificate} />
                 <Route path="/edit_profile" exact component={EditProfile} />
+                <Route path="/search_certificate" component={SearchCertificate} />
                 <Route path="/" component={InstituteDashboard} />
             </Switch>
         );

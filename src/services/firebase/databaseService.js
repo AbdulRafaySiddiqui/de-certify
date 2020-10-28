@@ -46,6 +46,14 @@ export const getCertificate = async (key) => {
     return await read(`certificates/${key}`);
 }
 
+export const getCertificateByIpfsHash = async (hash) => {
+    const value = (await database.ref('certificates').orderByChild(`ipfsHash`).equalTo(`${hash}`).once('value')).val();
+    if (value) {
+        return Object.keys(value)[0];
+    }
+    return null;
+}
+
 export const getStudentCertificates = async (studentAddress) => {
     return (await database.ref('certificates').orderByChild(`studentAddress`).equalTo(`${studentAddress}`).once('value')).val();
 }

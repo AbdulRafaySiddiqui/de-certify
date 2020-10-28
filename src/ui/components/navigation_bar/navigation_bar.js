@@ -25,7 +25,8 @@ export const NavigationBar = () => {
             < Nav.Link key={guid()} className='mx-3' as={Link} to='/pending_approvals' href='#pending_approvals' > Pending Approvals</Nav.Link >
         ];
     }
-    const spinner = <Spinner animation="grow" variant="light" role="status" />;
+
+    const search = < Nav.Link key={guid()} className='mx-3' as={Link} to='/search_certificate' href='#search_certificate' > Search</Nav.Link >;
 
     const signOutButton =
         <NavDropdown key={guid()} className='mx-3' alignRight
@@ -37,10 +38,9 @@ export const NavigationBar = () => {
             <NavDropdown.Item as={Link} href='#sign_out' onClick={() => appContext.signOut()}>Sign Out</NavDropdown.Item>
         </NavDropdown>;
 
-    if (!appContext.isAuthenticated) {
-        // authenticatedNavLinks.push(spinner);
-    }
-    else {
+
+    if (appContext.isAuthenticated) {
+        authenticatedNavLinks.push(search);
         authenticatedNavLinks.push(signOutButton);
     }
 
@@ -73,10 +73,10 @@ export const NavigationBar = () => {
                 <Navbar.Collapse id='navbar-items'>
 
                     <Nav className="ml-auto">
+
                         {
-                            // {/* Registration */ }
-                            // !appContext.isAuthenticated &&
-                            // < Nav.Link key={guid()} className='mx-3' as={Link} to='/registration' href='#register'>Registration</Nav.Link>
+                            !appContext.isAuthenticated &&
+                            search
                         }
 
                         {/* Authenticated Links */}
